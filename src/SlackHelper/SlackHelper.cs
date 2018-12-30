@@ -6,19 +6,29 @@ using ManxJason.SlackHelper.Attachments;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+// ReSharper disable AsyncConverter.AsyncAwaitMayBeElidedHighlighting
+
 namespace ManxJason.SlackHelper
 {
     public sealed class SlackHelper
     {
+        private readonly Uri _incomingWebHook;
+
+        /// <summary>
+        /// Obtain the incoming webhook from your Slack configuration options.
+        /// </summary>
+        /// <param name="incomingWebHook"></param>
+        public SlackHelper(Uri incomingWebHook) =>
+            _incomingWebHook = incomingWebHook ?? throw new ArgumentNullException();
+
         /// <summary>
         /// Send a single attachment via webhook.
         /// </summary>
-        /// <param name="incomingWebHook"></param>
         /// <param name="attachment"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, Attachment attachment) =>
+        public async Task<HttpResponseMessage> SendAsync(Attachment attachment) =>
             await PostToSlack(
-                    incomingWebHook,
+                    _incomingWebHook,
                     new AttachmentsContainer
                     {
                         Attachments = new[]
@@ -31,12 +41,11 @@ namespace ManxJason.SlackHelper
         /// <summary>
         /// Send an array of attachments via webhook.
         /// </summary>
-        /// <param name="incomingWebHook"></param>
         /// <param name="attachments"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, Attachment[] attachments) =>
+        public async Task<HttpResponseMessage> SendAsync(Attachment[] attachments) =>
             await PostToSlack(
-                    incomingWebHook,
+                    _incomingWebHook,
                     new AttachmentsContainer
                     {
                         Attachments = attachments
@@ -46,12 +55,11 @@ namespace ManxJason.SlackHelper
         /// <summary>
         /// Send a regular string value via webhook.
         /// </summary>
-        /// <param name="incomingWebHook"></param>
         /// <param name="message">Plain old text value.</param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, string message) =>
+        public async Task<HttpResponseMessage> SendAsync(string message) =>
             await PostToSlack(
-                    incomingWebHook,
+                    _incomingWebHook,
                     new
                     {
                         text = message
@@ -61,11 +69,10 @@ namespace ManxJason.SlackHelper
         /// <summary>
         /// Build your own anonymous object following Slack documentation to send your customised message.
         /// </summary>
-        /// <param name="incomingWebHook"></param>
         /// <param name="message"></param>
         /// <returns>HttpResponse</returns>
-        public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, object message) =>
-            await PostToSlack(incomingWebHook, message).ConfigureAwait(false);
+        public Task<HttpResponseMessage> SendAsync(object message) =>
+            PostToSlack(_incomingWebHook, message);
 
         private static async Task<HttpResponseMessage> PostToSlack(Uri slackHook, object content)
         {
