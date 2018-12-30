@@ -11,6 +11,8 @@ namespace ManxJason.SlackHelper.Attachments
     {
         public string Fallback { get; set; }
         public string Color { get; set; }
+
+        [JsonProperty("pretext")]
         public string PreText { get; set; }
 
         [JsonProperty("author_name")]
