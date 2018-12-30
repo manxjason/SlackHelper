@@ -8,7 +8,7 @@ Lightweight async .Net Standard library for posting Slack messages or attachment
 
 ### Send a plain text message
 ```
-SlackHelper helper = new SlackHelper(
+ISlackHelper helper = new SlackHelper(
         new Uri("your slack webhook uri"));
 
 HttpResponseMessage result = await helper.SendAsync("your message");
@@ -16,7 +16,7 @@ HttpResponseMessage result = await helper.SendAsync("your message");
 ### Send attachment(s)
 Supports single `Attachment` or `Attachment[]`
 ```
-SlackHelper helper = new SlackHelper(
+ISlackHelper helper = new SlackHelper(
         new Uri("your slack webhook uri"));
 
 Attachment attachment = new Attachment
@@ -39,7 +39,7 @@ Attachment attachment = new Attachment
 
 ### Send your own slack compliant message (see Slack documentation)
 ```
-SlackHelper helper = new SlackHelper(
+ISlackHelper helper = new SlackHelper(
         new Uri("your slack webhook uri"));
 
 var myMessage = new {text = "your message"};
