@@ -62,13 +62,7 @@ namespace ManxJason.SlackHelper
         /// <param name="message"></param>
         /// <returns>HttpResponse</returns>
         public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, object message) =>
-            await PostToSlack(
-                    incomingWebHook,
-                    new
-                    {
-                        text = message
-                    })
-                .ConfigureAwait(false);
+            await PostToSlack(incomingWebHook, message).ConfigureAwait(false);
 
         private static async Task<HttpResponseMessage> PostToSlack(Uri slackHook, object content)
         {
