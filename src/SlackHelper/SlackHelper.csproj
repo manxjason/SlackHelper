@@ -1,6 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Title>SlackHelper</Title>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>ManxJason.SlackHelper</AssemblyName>
     <RootNamespace>ManxJason.SlackHelper</RootNamespace>
@@ -8,11 +9,12 @@
     <Authors>Jason Callister</Authors>
     <Company>Jason Callister</Company>
     <Description>Lightweight .Net Standard library for posting Slack messages or attachments via webhook integration</Description>
+    <Summary>Lightweight .Net Standard library for posting Slack messages or attachments via webhook integration</Summary>
     <PackageLicenseUrl>https://github.com/manxjason/SlackHelper/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>https://github.com/manxjason/SlackHelper/blob/master/LICENSE</Copyright>
     <PackageProjectUrl>https://github.com/manxjason/SlackHelper</PackageProjectUrl>
     <RepositoryUrl>https://github.com/manxjason/SlackHelper</RepositoryUrl>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Basic webhook functionality only.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
