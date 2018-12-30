@@ -18,14 +18,15 @@ namespace ManxJason.SlackHelper
         /// <returns></returns>
         public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, Attachment attachment) =>
             await PostToSlack(
-                incomingWebHook,
-                new AttachmentsContainer
-                {
-                    Attachments = new[]
+                    incomingWebHook,
+                    new AttachmentsContainer
                     {
-                        attachment
-                    }
-                }).ConfigureAwait(false);
+                        Attachments = new[]
+                        {
+                            attachment
+                        }
+                    })
+                .ConfigureAwait(false);
 
         /// <summary>
         /// Send an array of attachments via webhook.
@@ -35,11 +36,12 @@ namespace ManxJason.SlackHelper
         /// <returns></returns>
         public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, Attachment[] attachments) =>
             await PostToSlack(
-                incomingWebHook,
-                new AttachmentsContainer
-                {
-                    Attachments = attachments
-                }).ConfigureAwait(false);
+                    incomingWebHook,
+                    new AttachmentsContainer
+                    {
+                        Attachments = attachments
+                    })
+                .ConfigureAwait(false);
 
         /// <summary>
         /// Send a regular string value via webhook.
@@ -49,11 +51,12 @@ namespace ManxJason.SlackHelper
         /// <returns></returns>
         public static async Task<HttpResponseMessage> SendAsync(Uri incomingWebHook, string message) =>
             await PostToSlack(
-                incomingWebHook,
-                new
-                {
-                    text = message
-                }).ConfigureAwait(false);
+                    incomingWebHook,
+                    new
+                    {
+                        text = message
+                    })
+                .ConfigureAwait(false);
 
         /// <summary>
         /// Build your own anonymous object following Slack documentation to send your customised message.
