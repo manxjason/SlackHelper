@@ -10,7 +10,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace ManxJason.SlackHelper
 {
-    public sealed class SlackHelper
+    public sealed class SlackHelper : ISlackHelper
     {
         private readonly Uri _incomingWebHook;
 
@@ -20,6 +20,20 @@ namespace ManxJason.SlackHelper
         /// <param name="incomingWebHook"></param>
         public SlackHelper(Uri incomingWebHook) =>
             _incomingWebHook = incomingWebHook ?? throw new ArgumentNullException();
+
+        /// <summary>
+        /// Send a regular string value via webhook.
+        /// </summary>
+        /// <param name="message">Plain old text value.</param>
+        /// <returns></returns>
+        public async Task<HttpResponseMessage> SendAsync(string message) =>
+            await PostToSlack(
+                    _incomingWebHook,
+                    new
+                    {
+                        text = message
+                    })
+                .ConfigureAwait(false);
 
         /// <summary>
         /// Send a single attachment via webhook.
@@ -49,20 +63,6 @@ namespace ManxJason.SlackHelper
                     new AttachmentsContainer
                     {
                         Attachments = attachments
-                    })
-                .ConfigureAwait(false);
-
-        /// <summary>
-        /// Send a regular string value via webhook.
-        /// </summary>
-        /// <param name="message">Plain old text value.</param>
-        /// <returns></returns>
-        public async Task<HttpResponseMessage> SendAsync(string message) =>
-            await PostToSlack(
-                    _incomingWebHook,
-                    new
-                    {
-                        text = message
                     })
                 .ConfigureAwait(false);
 
