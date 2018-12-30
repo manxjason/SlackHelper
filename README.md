@@ -30,8 +30,8 @@ Attachment attachment = new Attachment
                 new Field("title", "value", true), 
                 new Field("title", "value")
             },
-                AuthorName = "manxjason"
-                //additional properties..
+        AuthorName = "manxjason"
+        //additional properties..
             };
 
  HttpResponseMessage result = await helper.SendAsync(attachment);
